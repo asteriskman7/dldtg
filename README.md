@@ -11,4 +11,5 @@ the requirements. Then you will be able to sell your design to generate
 cash to purchase upgrades and additional designs.
 
 [Game link](http://asteriskman7.github.io/dldtg)
+
 [reddit.com/r/dldtg](http://reddit.com/r/dldtg)
