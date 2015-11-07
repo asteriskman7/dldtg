@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<!--
+  index.html
+  Author: asterisk_man
+  Date: 22 March 2014
+  Description: html for Digital Logic Design (The Game)
+               This file copyright asterisk_man 2014. All rights reserved.
+-->
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Digital Logic Design (The Game)</title>
+    <meta name="description" content="A game for engineers. Implement digital logic designs by entering a netlist and simulating the design to see if it's correct.">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='dld.css' rel='stylesheet' type='text/css'>
+    <link href='./favicon.ico' rel='shortcut icon'>
+    <script src='./dld.js'></script>
+    <script src='./cycle_sim.js'></script>
+    <script src='./cycle_sim_prim.js'></script>
+    <script src='./dld_designs.js'></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      //ga('create', 'UA-45052710-2', 'googledrive.com');
+      //ga('send', 'pageview');
+
+    </script>
+  </head>
+  <body id='body'>
+    <div id='div_popup' class='div_popup'>
+      <div id='div_popup_text'></div>
+      <div class='div_popup_buttons'>
+        <button type='button' id='button_popup_ok'>OK</button>
+      </div>
+    </div>
+    <div id='div_unsupported'>
+      <h1>Loading. If this message doesn't go away you may be using an unsupported browser (like IE). Try Chrome or Firefox.</h1>
+    </div>
+    <div id='div_header'>
+      <h1 id='h1_top'>Digital Logic Design <small>(The Game)</small></h1>
+      <div id='div_top_stats'>
+        <div>Si: <span id='span_si_count'></span></div>
+        <div>Cash: $<span id='span_cash_count'></span></div>
+      </div>
+      <div id='div_tab_buttons'>
+        <button type='button' id='button_tab_docs'>Docs</button>
+        <button type='button' id='button_tab_mine'>Si Mine</button>
+        <button type='button' id='button_tab_design'>Design</button>
+        <button type='button' id='button_tab_business'>Business</button>
+        <button type='button' id='button_tab_upgrades'>Upgrades</button>
+        <button type='button' id='button_tab_info'>Info</button>
+      </div>
+    </div>
+    <div id='div_content'>
+      <div id='div_tab_docs' class='div_tab'>
+        <div id='div_docs_select'>
+          Select Document:
+          <select id='select_docs'>
+            <option value='Introduction'>Introduction</option>
+            <option value='tutorial_1'>Tutorial 1</option>
+            <option value='tutorial_2'>Tutorial 2</option>
+            <option value='Mining'>Mining</option>
+            <option value='netlist_format'>Netlist Format</option>
+            <option value='primitives'>Primitives</option>
+          </select>
+          <div id='div_docs_Introduction' class='div_docs'>
+            <p class='p_narrow'>
+              Welcome to Digital Logic Design <small>(The Game)</small>! This game combines elements
+              of traditional incremental games like Cookie Clicker with more complex elements designed
+              apeal to someone interested in clicking less and thinking more.
+            </p>
+            <p class='p_narrow'>
+              In this game you will take on the role of a digital logic designer. You will be presented
+              with designs you must implement using logic gates. The design will be simulated to
+              verify that your implementation fulfills the requirements. Then you will be able to sell your design
+              to generate cash to purchase upgrades and additional designs.
+            </p>
+            <p class='p_narrow'>
+              However, there are 2 complications.
+            </p>
+            <p class='p_narrow'>
+              First, you only have one logical primitive available to you, the NAND gate. If you need
+              something else, an OR gate for example, you will have to design it yourself using NAND gates.
+              In fact, many of the first designs available to work on will be other simple logic gates.
+            </p>
+            <p class='p_narrow'>
+              Second, you can't create NAND gates from thin air. NAND gates are built from silicon (Si).
+              In order to sell your designs you must have enough silicon to create all the NAND gates required
+              for that design. The number of NAND gates required is defined by your own design implementation so
+              try to minimize the number of NANDs you use. Silicon is collected via mining, a task you will be performing
+              frequently at first but perhaps less often as you are able to purchase upgrades.
+            </p>
+            <p class='p_narrow'>
+              The user interface has been split into multiple tabs. Navagate between tabs by pressing the buttons
+              at the top of the page. Navigate between documents by selecting the desired document at the top of this
+              tab. To begin, select and follow the "Tutorial 1" document.
+            </p>
+            <p class='p_narrow'>
+              Questions, comments, suggestions, and discussion can be posted on <a href='http://reddit.com/r/dldtg'>reddit.com/r/dldtg</a>
+            </p>
+          </div>
+          <div id='div_docs_tutorial_1' class='div_docs'>
+            <p class='p_narrow'>
+              Your first task will be to complete the NAND design. This will be easy because the NAND blueprint
+              is free and you already have the NAND gate available as a primitive.
+            </p>
+            <p class='p_narrow'>
+              You'll purchase the blueprint so it will be available for you to implement. Then you'll load up the NAND test fixture and run your
+              first verification simulation. The test fixture is fully complete so you don't need to make
+              any changes.
+            </p>
+            <div id='div_popout_tutorial_1' class='div_tutorial_popout' data-title='Tutorial 1'>
+              <ol class='ol_narrow'>
+                <li>Press the &#x21B7; button to the right to pop this tutorial out of the page.</li>
+                <li>Go to the Business tab and purchase the NAND blueprint.</li>
+                <li>Go to the Design tab.</li>
+                <li>Select the NAND design.</li>
+                <li>Read the design description and follow its instructions.</li>
+              </ol>
+              <p class='p_narrow'>
+                After you've completed tutorial 1 proceed to tutorial 2.
+              </p>
+              <button type='button' class='button_popout' title='Pop out' data-popout_div='div_popout_tutorial_1'>&#x21B7;</button>
+            </div>
+          </div>
+          <div id='div_docs_tutorial_2' class='div_docs'>
+            <p class='p_narrow'>
+              Your second task will be to complete the NOT design. This time you will need money to purchase the
+              blueprint and you'll need to design and implement the NOT gate.
+            </p>
+            <p class='p_narrow'>
+              To get money, you will need to sell NANDs but you can't do that without first mining some silicon.
+              To implement the NOT gate you'll probably want to refer to the primitives document and the netlist
+              format document.
+            </p>
+            <div id='div_popout_tutorial_2' class='div_tutorial_popout' data-title='Tutorial 2'>
+              <ol class='ol_narrow'>
+                <li>Go to the Business tab to check the price of the NOT blueprint, the sale price of the NAND design, and the cost of the NAND design in Si.</li>
+                <li>Go to the Si Mine tab and mine enough Si so you can sell enough NANDs to buy the NOT blueprint.</li>
+                <li>Go to the Business tab, sell some NANDs and buy the NOT blueprint.</li>
+                <li>Go to the Design tab.</li>
+                <li>Select the NOT design.</li>
+                <li>Read the design description.</li>
+                <li>Press the Load Test button.</li>
+                <li>Using the available primitives and valid netlist format (see other documents for references), implement your NOT design above the test fixture loaded in the previous step.
+                    You're going to need to add text to the top of the netlist that looks something like this:
+                  <div><div class='div_docs_netlist'>DEF NOT
+  PORT IN A
+  PORT OUT Z
+
+  <span class='span_docs_comment'>#</span>
+  <span class='span_docs_comment'>#YOU FILL IN THIS PART</span>
+  <span class='span_docs_comment'>#</span>
+
+ENDDEF </div></div>
+                </li>
+                <li>Press the Init\Reset button.</li>
+                <li>Press the Run button.</li>
+                <li>Review the log messages and iterate over the previous 3 steps until you have successfully implemented a NOT gate</li>
+              </ol>
+              <button type='button' class='button_popout' title='Pop out' data-popout_div='div_popout_tutorial_2'>&#x21B7;</button>
+            </div>
+            <p class='p_narrow'>
+              Now is probably a good time to start storing your designs into a local file that you can load into the simulator. This will
+              not be the last time you will need a NOT gate. Create a new text file anywhere on your computer. Edit the file with your
+              favorite text editor. You can use the Choose File and Prepend File buttons on the Design tab to load your designs directly
+              from the file into the netlist textbox.
+            </p>
+            <p class='p_narrow'>
+              You've finished all the tutorials. Try to purchase and implement all the remaining designs. You'll find upgrades available on the
+              Upgrades tab that will help you along the way.
+            </p>
+            <p class='p_narrow'>
+              Good Luck and remember that you can always visit <a href='http://reddit.com/r/dldtg'>reddit.com/r/dldtg</a> for
+              questions, comments, suggestions, and discussion.
+            </p>
+          </div>
+          <div id='div_docs_netlist_format' class='div_docs'>
+            <p class='p_narrow'>
+              A netlist defines logical blocks, their hierarchy, and their connections. A logical block can contain
+              input and output ports, internal nets, and child blocks. A block must be defined before it can be used.
+              First a quick and dirty example to get you started and a detailed annotated example follows it.
+            </p>
+            <div><div class='div_docs_netlist'><span class='span_docs_comment'>#Create a new block called "SimpleBlock".</span>
+<span class='span_docs_comment'>#It has input ports A and B and an output port Z.</span>
+<span class='span_docs_comment'>#Create an instance of a NAND named MyNAND.</span>
+<span class='span_docs_comment'>#The NAND has 2 input ports and one output port.</span>
+<span class='span_docs_comment'>#Connect the input ports A and B to the NAND's 2 input ports and</span>
+<span class='span_docs_comment'>#connect the output port Z to the NAND's output port.</span>
+DEF SimpleBlock
+  PORT IN A
+  PORT IN B
+  PORT OUT Z
+
+  INST MyNAND NAND A B Z
+ENDDEF</div></div>
+            <p class='p_narrow'>
+              This simple example can also be thought of in programming terms as something like the following:
+            </p>
+            <pre>
+Function SimpleBlock (input A, input B) {
+  return NAND(A, B);
+}</pre>
+            <p class='p_narrow'>
+              Just remember that you can have multiple output ports.
+            </p>
+            <p class='p_narrow'>
+              Now for the complete example.
+            </p>
+            <div><div class='div_docs_netlist'><span class='span_docs_comment'>#Everything on a line after a # character is ignored.</span>
+<span class='span_docs_comment'>#Blank lines are ignored.</span>
+
+<span class='span_docs_comment'>#case is ignored. Everything is converted to UPPERCASE internally.</span>
+
+<span class='span_docs_comment'>#begin the definition of a logical block with the DEF command</span>
+DEF myBlock           <span class='span_docs_comment'>#DEF &lt;block name&gt;</span>
+
+  <span class='span_docs_comment'>#multiple whitespace characters can occur before/after a command and between arguments</span>
+  <span class='span_docs_comment'>#The PORT command defines the inputs and outputs a block uses to communicate with it's parent block.</span>
+  PORT IN MYINPUT
+  PORT IN MYINPUT2    <span class='span_docs_comment'>#PORT &lt;IN|OUT&gt; &lt;port name&gt;</span>
+
+  <span class='span_docs_comment'>#The order the ports are defined is the same order they must appear when your block is instantiated.</span>
+  PORT OUT MYOUTPUT
+
+  <span class='span_docs_comment'>#The NET command defines internal nets that can be used to connect your block's child blocks' ports to each other.</span>
+  <span class='span_docs_comment'>#Nets and ports share the same namespace so you can not create a port with the same name as a net and vice versa.</span>
+  NET NET1            <span class='span_docs_comment'>#NET &lt;net name&gt;</span>
+
+  <span class='span_docs_comment'>#The INST command creates an instance of a child block and connects nets or ports from your block</span>
+  <span class='span_docs_comment'>#  to the child block's IN and OUT ports.</span>
+  <span class='span_docs_comment'>#INST &lt;instance name&gt; &lt;block name&gt; &lt;port list&gt;</span>
+
+  INST MYNAND NAND MYINPUT MYINPUT2 NET1
+
+  <span class='span_docs_comment'>#PORT, NET, INST can occur in any order as long as the PORTs and NETs used by an INST are defined before they are used.</span>
+  PORT IN ANOTHERINPUT
+  INST NAND2 NAND NET1 ANOTHERINPUT MYOUTPUT
+
+  <span class='span_docs_comment'>#Any nets/ports can be provded with vector notation. Vectored PORT/NET statements expand to multiple PORT/NET</span>
+  <span class='span_docs_comment'>#  statements in order of the vector from left to right. in this case the VECTOR&lt;1&gt; port would be before VECTOR&lt;0&gt;.</span>
+  <span class='span_docs_comment'>#  You can use vectors in any order &lt;high:low&gt; or &lt;low:high&gt;</span>
+  <span class='span_docs_comment'>#When vectors are used to connect to instances they are expanded and work as if the vector had been manually expanded.</span>
+  <span class='span_docs_comment'>#You can not create a vectored instance.</span>
+  PORT IN VECTOR&lt;1:0&gt;
+  PORT OUT VECTOR_NAND_OUT
+  INST NAND3 NAND VECTOR&lt;1:0&gt; VECTOR_NAND_OUT
+ <span class='span_docs_comment'>#INST NAND3 NAND VECTOR&lt;1&gt; VECTOR&lt;0&gt; VECTOR_NAND_OUT #The previous line is identical to this line.</span>
+
+<span class='span_docs_comment'>#End the definition of a logical block with the ENDDEF command.</span>
+<span class='span_docs_comment'>#ENDDEF must always occur before the next DEF.</span>
+ENDDEF
+
+<span class='span_docs_comment'>#Continue to define as many blocks as necessary.</span>
+<span class='span_docs_comment'>#The block at the top of the hierarchy MUST be named TOP.</span>
+<span class='span_docs_comment'>#Since every block that TOP uses must be defined above it, TOP must be defined at the bottom of the netlist.</span>
+DEF TOP
+  NET A
+  NET Z
+  INST A IO_IN A
+  INST Z IO_OUT Z
+  INST NAND1 NAND A true Z <span class='span_docs_comment'>#true and false can be used to force inputs to specific values.</span>
+ENDDEF</div></div>
+          </div>
+          <div id='div_docs_primitives' class='div_docs'>
+            <p class='p_narrow'>
+              The primitives described below are the only ones which are predefined for use in
+              the simulator. You are responsible for defining anything else you need using only
+              these devices.
+            </p>
+            <div class='div_narrow'>
+              <ul>
+                <li>
+                  Logic
+                  <ul>
+                    <li>
+                      <dl class='dl_docs_primitive'>
+                        <dt>NAND</dt>
+                        <dd>
+                          <dl>
+                            <dt>Description</dt><dd>Logical NAND gate</dd>
+                            <dt>Inputs</dt><dd>A, B: The inputs to the NAND function.</dd>
+                            <dt>Outputs</dt><dd>Z: The result of A NAND B.</dd>
+                            <dt>Example</dt><dd>INST N1 NAND A B Z</dd>
+                          </dl>
+                        </dd>
+                      </dl>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Memory - None
+                </li>
+                <li>
+                  IO (IO controls are displayed below the netlist window)
+                  <ul>
+                    <li>
+                      <dl class='dl_docs_primitive'>
+                        <dt>IO_IN</dt>
+                        <dd>
+                          <dl>
+                            <dt>Description</dt><dd>Input port that allows the user to control one bit of data into the design.</dd>
+                            <dt>Inputs</dt><dd>None (Input is done via user controlled IO control)</dd>
+                            <dt>Outputs</dt><dd>Z: The value of the input port as controlled externally to the design.</dd>
+                            <dt>Example</dt><dd>INST IN1 IO_IN Z</dd>
+                          </dl>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <dl class='dl_docs_primitive'>
+                        <dt>IO_IN8</dt>
+                        <dd>
+                          <dl>
+                            <dt>Description</dt>
+                            <dd>
+                              Input port that allows the user to control 8 bits of data into the design.
+                              The value may be specified as 8 binary bits (ex. 00110101) or 2 hex
+                              digits prefixed by 'x' (ex. x1F).
+                            </dd>
+                            <dt>Inputs</dt><dd>None (Input is done via user controlled IO control)</dd>
+                            <dt>Outputs</dt><dd>Z&lt;7:0&gt;: The value of the input port as controlled externally to the design.</dd>
+                            <dt>Example</dt><dd>INST IN1 IO_IN8 Z&lt;7:0&gt;</dd>
+                          </dl>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <dl class='dl_docs_primitive'>
+                        <dt>IO_OUT</dt>
+                        <dd>
+                          <dl>
+                            <dt>Description</dt>
+                            <dd>
+                              Output port that allows the user to send one bit of data out of the design.
+                            </dd>
+                            <dt>Inputs</dt><dd>A: The value to display externally.</dd>
+                            <dt>Outputs</dt><dd>None (Output is done via IO control)</dd>
+                            <dt>Example</dt><dd>INST OUT1 IO_OUT A</dd>
+                          </dl>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <dl class='dl_docs_primitive'>
+                        <dt>IO_OUT8</dt>
+                        <dd>
+                          <dl>
+                            <dt>Description</dt>
+                            <dd>
+                              Output port that allows the user to send 8 bits of data out of the design.
+                              The value is displayed in binary and hex simultaneously (ex. 11001010 (xCA)).
+                            </dd>
+                            <dt>Inputs</dt><dd>A&lt;7:0&gt;: The 8 bit value to display externally.</dd>
+                            <dt>Outputs</dt><dd>None (Output is done via IO control)</dd>
+                            <dt>Example</dt><dd>INST OUT1 IO_OUT8 A&lt;7:0&gt;</dd>
+                          </dl>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <dl class='dl_docs_primitive'>
+                        <dt>IO_OUT7SEG</dt>
+                        <dd>
+                          <dl>
+                            <dt>Description</dt>
+                            <dd>
+                              Output port that allows the user to display data on a 7 segment display.
+                            </dd>
+                            <dt>Inputs</dt><dd>A,B,C,D,E,F,G: The 7 controls of a 7 segment display.</dd>
+                            <dt>Outputs</dt><dd>None (Output is done via IO control)</dd>
+                            <dt>Example</dt><dd>INST OUT1 IO_OUT7SEG A B C D E F G</dd>
+                          </dl>
+                        </dd>
+                      </dl>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id='div_docs_Mining' class='div_docs'>
+            <p class='p_narrow'>
+              Our NAND gates are semiconductors and are primarily made of silicon (Si). You will need
+              silicon when you sell designs. You'll need more silicon to make more complex designs.
+              You can collect silicon by 'mining' on the Mine tab. You can also purchase upgrades
+              which will increase your mining efficiency or automatically mine for you.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id='div_tab_mine' class='div_tab'>
+        <div id='div_mine_mine'>Silicon Mine: <button type='button' id='button_mine'>Mine</button></div>
+        <div>Silicon (Si): <span id='span_mine_si_count'>0</span></div>
+        <div>Mining skill (Si/attempt): <span id='span_mine_skill'>0</span></div>
+        <div>Auto miners: <span id='span_mine_autoMiner_count'>0</span></div>
+        <div>Auto miner attempt rate (attempts/s): <span id='span_mine_autoMiner_attempt_rate'>0</span></div>
+        <div>Auto miner Si rate (Si/s): <span id='span_mine_autoMiner_si_rate'>0</span></div>
+      </div>
+
+      <div id='div_tab_design' class='div_tab'>
+        <div id='div_design_selects'>
+          Available Designs:
+          <span id='span_design_rDesigns'>
+            <select size='10' id='select_design_rDesigns' class='select_designs'>
+            </select>
+          </span>
+        </div>
+        <div>
+          <h2>Design Description</h2>
+          <div id='div_design_description'>
+          </div>
+        </div>
+        <div id='div_design_design'>
+          <div id='div_design_textboxes'>
+            <div id='div_design_netlist'>
+              <div id='div_design_netlist_label'>
+                Netlist: <input id='input_design_netlist' type='file'>
+                <div>
+                  <button type='button' id='button_design_load_test'>Load Test</button>
+                  <button type='button' id='button_design_load_netlist'>Prepend File</button>
+                  <button type='button' id='button_design_clear_netlist'>Clear Netlist</button>
+                </div>
+              </div>
+              <textarea id='textarea_design_netlist' rows='15' spellcheck='false'></textarea>
+            </div>
+            <div id='div_design_log'>
+              <div id='div_design_log_label'>
+                Log:
+              </div>
+              <textarea id='textarea_design_log' rows='15' spellcheck='false'></textarea>
+            </div>
+          </div>
+          <div id='div_design_sim_controls'>
+            <button type='button' id='button_design_init'>Init\Reset</button>
+            <button type='button' id='button_design_run'>Run</button>
+            <button type='button' id='button_design_pause'>Pause</button>
+            <button type='button' id='button_design_step'>Step</button>
+            <button type='button' id='button_design_speed+'>Speed +</button>
+            <button type='button' id='button_design_speed-'>Speed -</button>
+            Speed=<span id='span_design_speed'>1x</span>
+            <p>T=<span id='span_design_time'>0</span></p>
+          </div>
+          <div>
+            <h2>IO</h2>
+            <input type='checkbox' id='checkbox_design_graphs' checked='checked'>Graphs enabled
+            <div id='div_design_io'>
+            </div>
+          </div>
+          <div>
+            <h2>Hierarchy</h2>
+            <div id='div_design_hierarchy'>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id='div_tab_business' class='div_tab'>
+        <div class='div_float_wrapper'>
+          <div class='div_float_left' id='div_business_research'>
+            <h2>Designs "blueprints" for research:</h2>
+            <ul id='ul_business_research'>
+            </ul>
+          </div>
+          <div class='div_float_right' id='div_business_sell'>
+            <h2>Completed designs for sale:</h2>
+            <ul id='ul_business_sale'>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id='div_tab_upgrades' class='div_tab'>
+        <ul id='ul_upgrades_list'>
+        </ul>
+      </div>
+
+      <div id='div_tab_info' class='div_tab'>
+        <div>Version: <span id='span_info_version'>?</span></div>
+        <div>
+          <button type='button' id='button_info_save'>Save</button>
+          <button type='button' id='button_info_reset'>Reset</button>
+        </div>
+        <div>
+          <h2>Reddit:</h2>
+            <a href='http://reddit.com/r/dldtg'>/r/dldtg</a>
+          <h2>Tips/Donate:</h2>
+            <ul>
+              <li>Bitcoin: 124QrAsR93E7B8tAdfMsUs5wGouyfa2WjT <img src='./BITCOINQR.gif' alt='bitcoin qr code'></li>
+              <li>Dogecoin: DGamyZ2967hMhUEjZErLG6hv3dVe2Vxn7L <img src='./DOGEQR.gif' alt='dogecoin qr code'></li>
+            </ul>
+          <h2>Stats:</h2>
+          <ul>
+            <li>Mine Clicks: <span id='span_info_mine_clicks'>?</span></li>
+            <li>Sell Clicks: <span id='span_info_sell_clicks'>?</span></li>
+            <li>Total Mined: <span id='span_info_total_mined'>?</span></li>
+            <li>Total Sold: $<span id='span_info_total_sold'>?</span></li>
+            <li>Completed Designs: <span id='span_info_completed_designs'>?</span></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Todo:</h2>
+          <ul>
+            <li>Prevent a reset from causing setInterval()s in init() to run twice</li>
+            <li>Do something to make it obvious how to debug by removing the
+                test fixture and changing IO_OUTs to IO_INs</li>
+            <li>Add text to indicate that most tests are randomized</li>
+            <li>Prevent holding enter on sell buttons from working</li>
+            <li>Add confirmation to reset button</li>
+            <li>Show a popup if player tries to sell without enough Si or buy without enough $</li>
+            <li>Handle large number of clicks on sell buttons wrt analytics</li>
+            <li>Including IO_IN(8) should cause all tests to ultimately fail.</li>
+            <li>Display Si per NAND somewhere</li>
+            <li>Add more tests</li>
+            <li>Make max simulator speed upgrade do something</li>
+            <li>Add auto-selling feature</li>
+            <li>Add checkbox to select what design will be auto-sold</li>
+            <li>Collect and display more stats in info tab</li>
+            <li>Make more attractive</li>
+            <li>Balance everything</li>
+            <li>Make more fun</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Todone:</h2>
+          <ul>
+            <!-- generate time with date -u -->
+            <li><span class="span_info_time">Mon Apr 21 10:28:35 UTC 2014</span>Add ADDx8 design</li>
+            <li><span class="span_info_time">Fri Apr 11 15:36:51 UTC 2014</span>Add BIN_TO_7SEG design</li>
+            <li><span class="span_info_time">Fri Apr 11 15:36:51 UTC 2014</span>Add IO_OUT7SEG output</li>
+            <li><span class="span_info_time">Fri Apr 11 15:36:51 UTC 2014</span>Add confirmation dialog when resetting</li>
+            <li><span class="span_info_time">Thu Apr 10 17:09:26 UTC 2014</span>Change Si to internally only have 2 decimal digits</li>
+            <li><span class="span_info_time">Sat Apr  5 04:41:31 UTC 2014</span>Add pop outs for tutorial 1 & 2</li>
+            <li><span class="span_info_time">Fri Apr  4 20:06:25 UTC 2014</span>Change dialog close to X</li>
+            <li><span class="span_info_time">Fri Apr  4 18:32:38 UTC 2014</span>Add error reporting code</li>
+            <li><span class="span_info_time">Thu Apr  3 12:51:02 UTC 2014</span>Display info about relative size of solution</li>
+            <li><span class="span_info_time">Thu Apr  3 03:44:39 UTC 2014</span>Adjust upgrade balancing</li>
+            <li><span class="span_info_time">Thu Apr  3 03:44:39 UTC 2014</span>Adjust design cost/price with new expectedNand values</li>
+            <li><span class="span_info_time">Thu Apr  3 03:32:04 UTC 2014</span>Make upgrades show current and next valueA</li>
+            <li>Fixed demux tests so that the name remains consistant between description and test</li>
+            <li>General release</li>
+            <li>Find beta testers</li>
+            <li>For IE we should at least detect the problem and alert the user to use a different browser</li>
+            <li>Host on google drive</li>
+            <li>Add google analytics</li>
+            <li>Display the $ per Si for each completed design on the sales area.</li>
+            <li>Add docs</li>
+            <li>Add tutorial</li>
+            <li>Make sure you can't pass a test that hasn't be purchased by changing the netlist to point to the unpurchased test.</li>
+            <li>Add upgrades like increase count of auto miners and auto sellers, decrease cost
+                of NAND, increase Si per attempt,</li>
+            <li>Add Si and Money value/labels outside of tabs</li>
+            <li>Add money</li>
+            <li>Add design buying mechanic</li>
+            <li>Add selling mechanic</li>
+            <li>Get design testing mechanic working</li>
+            <li>Start integration of cyle simulator</li>
+            <li>Disable spell check on textareas</li>
+            <li>Get basic simulation working</li>
+            <li>Load netlist from file</li>
+            <li>Get primitives code into seperate file</li>
+            <li>Get designs code into seperate file</li>
+            <li>Need to keep track of design completeness and # nands used in each</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id='div_footer'>
+      <small>All content copyright &copy; 2014 asterisk_man. All rights reserved.</small>
+    </div>
+  </body>
+</html>

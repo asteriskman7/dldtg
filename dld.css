@@ -1,0 +1,316 @@
+/* dld.css
+   Author: asterisk_man
+   Date: 11 December 2013
+   Description: css for Digital Logic Design (The Game)
+                This file copyright asterisk_man 2014. All rights reserved.
+*/
+
+/*
+  # => id
+  . => class
+*/
+
+body {
+  background: #F4E9C9;
+  font-family: 'Open Sans', helvetica, arial, sans-serif;
+}
+
+.div_popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  max-width: 30%;
+  margin-left: -15%;
+  border: 2px solid;
+  background: #FFFFFF;
+  padding: 0.4em;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+  visibility: hidden;
+}
+
+.div_popup_buttons {
+  margin-top: 10px;
+}
+
+.div_dialog {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  max-width: 30%;
+  min-width: 10em;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+}
+
+.div_dialogTitle {
+  background-color: #F4E9C9;
+  text-align: center;
+  font-weight: bold;
+  padding: 0.4em;
+  border-top: 2px solid;
+  border-left: 2px solid;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  cursor: move;
+}
+
+.button_dialog_close {
+  font-weight: bold;
+  float: right;
+  margin-left: 0.5em;
+}
+
+.div_dialogContent {
+  background-color: #FEFCF7;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 0.4em;
+}
+
+#div_top_stats {
+  margin-bottom: 1em;
+  padding: 0.5em;
+  background: #FFFFFF;
+  border: 2px solid;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+#div_tab_buttons {
+  margin-bottom: 5px;
+}
+
+.div_tab {
+  display: none;
+  padding: 10px;
+  border: 2px solid;
+  border-radius: 5px;
+  background: #FEFCF7;
+}
+
+.div_docs {
+  display:none;
+  margin-top: 10px;
+}
+
+.p_narrow {
+  max-width: 6in;
+}
+
+.div_narrow {
+  max-width: 6in;
+}
+
+.ol_narrow {
+  max-width: 6in;
+}
+
+.div_tutorial_popout {
+  border: 1px dashed;
+  display: inline-block;
+  padding-right: 1em;
+  padding-left: 1em;
+  position: relative;
+}
+
+.button_popout {
+  position: absolute;
+  width: 35px;
+  height: 30px;
+  top: -15px;
+  right: -18px;
+  font-size: 1.2em;
+}
+
+.div_dialogContent > .button_popout {
+  display: none;
+}
+
+.pre_docs_netlist {
+  background-color: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  padding: 0.5em;
+}
+
+.div_docs_netlist {
+  background-color: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  font-family: "Courier New", monospace;
+  white-space: pre;
+  font-size: small;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  display: inline-block;
+  padding: 1em;
+}
+
+.span_docs_comment {
+  color: #5FB15F;
+}
+
+.dl_docs_primitive {
+  border: 1px solid #000000;
+  border-radius: 5px;
+  padding: 0.5em;
+  background: #FFFFFF;
+}
+
+#button_mine {
+  min-width: 8em;
+  min-height: 4em;
+}
+
+#div_design_selects {
+  vertical-align: top;
+}
+
+.select_designs {
+  min-width: 18em;
+}
+
+#div_design_description {
+  max-width: 6in;
+  margin-top: 10px;
+  margin-bottom:15px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  background: #FFF8E4;
+}
+
+.table_truth_table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.table_truth_table td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 0.25em;
+}
+
+.table_truth_table th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 0.25em;
+}
+
+#div_design_textboxes {
+  width: 100%;
+  overflow: hidden;
+}
+
+#div_design_netlist {
+  float: left;
+  width: 50%;
+}
+
+#div_design_netlist_label {
+  min-height: 60px;
+}
+
+#textarea_design_netlist {
+  width:90%;
+  white-space: pre;
+  word-wrap: normal;
+  overflow-x: scroll;
+}
+
+#div_design_log {
+  float:right;
+  width:50%;
+}
+
+#div_design_log_label {
+  min-height: 60px;
+}
+
+#textarea_design_log {
+  width: 90%;
+}
+
+.canvas_wave {
+  background: #FFFFFF;
+}
+
+.canvas_7seg {
+  background: #FFFFFF;
+  border: 1px solid;
+  margin-right: 0.3em;
+}
+
+.div_float_wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.div_float_left {
+  width: 50%;
+  float: left;
+}
+
+.div_float_right {
+  width: 50%;
+  float: right;
+}
+
+.button_business_purchase {
+  min-width: 12em;
+  text-align: left;
+  margin-right: 1em;
+}
+
+.li_business_list {
+  border: 1px solid;
+  border-radius: 5px;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  background: #FFF8E4;
+}
+
+.span_business_name {
+  display: inline-block;
+  min-width: 10em;
+}
+
+.li_upgrades_list {
+  border: 1px solid;
+  border-radius: 5px;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  background: #FFF8E4;
+}
+
+#ul_upgrades_list {
+  display: inline-block;
+}
+
+.button_upgrades_purchase {
+  min-width: 12em;
+  text-align: left;
+  margin-right: 1em;
+}
+
+.span_info_time {
+  margin-right: 1em;
+  background-color: #F4E9C9;
+
+}
+
+#div_footer {
+  padding-top: 10px;
+}
