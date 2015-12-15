@@ -88,8 +88,11 @@ body {
   display: inline-block;
 }
 
-#div_tab_buttons {
-  margin-bottom: 5px;
+#div_tab_buttons button {
+  padding: .5em 1em;
+  border-radius: .5em 1em 0 0;
+  border-bottom: none;
+  background-color: #FEFCF7;
 }
 
 .div_tab {
