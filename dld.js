@@ -10,7 +10,7 @@
 'use strict';
 
 var dld = {
-  dld_version: 'ver_20140506.1',
+  dld_version: '2015-12-15.0',
   state: {},
   curTab: 'Docs',
   lastTick: undefined,
