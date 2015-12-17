@@ -6,7 +6,6 @@
                 This file copyright asterisk_man 2014. All rights reserved
 */
 
-/*jslint indent: 2, browser: true, devel: true, vars: true, forin: true, plusplus: true, todo: true, bitwise: true, white: true */
 /*global cycle_sim: false */
 "use strict";
 
@@ -50,9 +49,9 @@ var cycle_sim_prim = {
     primBlocks.NAND = new Cycle_sim_prim_obj('NAND', ['A', 'B'], ['Z'], true);
     primBlocks.NAND.init = function(inst) {
       //store some data to optimize the tick function here since it's a large cpu user
-      inst.siga = inst.nets["A"].signal;
-      inst.sigb = inst.nets["B"].signal;
-      inst.sigz = inst.nets["Z"].signal;
+      inst.siga = inst.nets.A.signal;
+      inst.sigb = inst.nets.B.signal;
+      inst.sigz = inst.nets.Z.signal;
     };
     primBlocks.NAND.tick = function(inst) {
       var valA = cycle_sim.hw.signals[inst.siga].value;
@@ -1826,7 +1825,7 @@ var cycle_sim_prim = {
             //verify output is correct
             valZ = cycle_sim.getSigVecVal(inst, 'Z', 7, 0);
 
-            if (!(valZ === inst.expectedZ)) {
+            if (valZ !== inst.expectedZ) {
                 failMsg = 'Output was not correct. Expected ' + opString[inst.lastOP] + '('+
                           cycle_sim.leftPadNumberString(inst.lastA.toString(2), 8) +
                           ' , ' +

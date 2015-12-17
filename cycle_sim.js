@@ -25,7 +25,6 @@
 //finish testing CPU test
 //move test text to another file?
 
-/*jslint indent: 2, browser: true, devel: true, vars: true, forin: true, plusplus: true, todo: true, bitwise: true, white: true */
 /*global cycle_sim_prim: false, ga: false */
 "use strict";
 
@@ -419,7 +418,6 @@ var cycle_sim = {
              cycle_sim.netlistErrorLog("DEF not allowed inside previous DEF. ENDDEF should come first", lineNum, line);
              ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-DefNotAllowedInDef');
              return false;
-             break;
            default:
             cycle_sim.netlistErrorLog("Unknown command \"" + cmd + "\"", lineNum, line);
             ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-UnknownCommand');
@@ -637,12 +635,12 @@ var cycle_sim = {
   },
   elaborate: function () {
     cycle_sim.log("===Elaboration start.");
-    if (cycle_sim.hw.blocks["TOP"] === undefined) {
+    if (cycle_sim.hw.blocks.TOP === undefined) {
       cycle_sim.log("ERROR: A block named TOP must be defined");
       ga('send', 'event', 'cycle_sim', 'elaborate', 'FAIL-TopMustBeDefined');
       return false;
     }
-    if (cycle_sim.hw.blocks["TOP"].ports.length > 0) {
+    if (cycle_sim.hw.blocks.TOP.ports.length > 0) {
       cycle_sim.log("ERROR: The TOP block must have no ports");
       ga('send', 'event', 'cycle_sim', 'elaborate', 'FAIL-TopMustNotHavePorts');
       return false;

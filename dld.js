@@ -4,9 +4,7 @@
    Description: javascript for Digital Logic Design (The Game)
                 This file copyright asterisk_man 2014. All rights reserved
 */
-/*jslint indent: 2, browser: true, devel: true, vars: true, forin: true, plusplus: true, todo: true*/
 /*global cycle_sim: false, dld_designs: false, dld_designs_display_order: false, FileReader: false, ga: false */
-/* discussion and options for jslint at http://www.jslint.com/lint.html */
 'use strict';
 
 var dld = {

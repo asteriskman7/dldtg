@@ -1,0 +1,7 @@
+{
+  "globalstrict": true,
+  "browser": true,
+  "devel": true,
+  "loopfunc": true,
+  "predef": [ ]
+}

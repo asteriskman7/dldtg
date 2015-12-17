@@ -5,7 +5,6 @@
                 This file copyright asterisk_man 2014. All rights reserved
 */
 
-/*jslint indent: 2, browser: true, devel: true, vars: true, forin: true, plusplus: true, todo: true, white: true*/
 'use strict';
 
 //we must never change the order of dld_designs but we can adjust the display order with this var
