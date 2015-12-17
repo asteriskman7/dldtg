@@ -12,12 +12,12 @@
     <title>Digital Logic Design (The Game)</title>
     <meta name="description" content="A game for engineers. Implement digital logic designs by entering a netlist and simulating the design to see if it's correct.">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href='dld-min.css' rel='stylesheet' type='text/css'>
+    <link href='dld.css' rel='stylesheet' type='text/css'>
     <link href='./favicon.ico' rel='shortcut icon'>
-    <script src='./dld-min.js'></script>
-    <script src='./cycle_sim-min.js'></script>
-    <script src='./cycle_sim_prim-min.js'></script>
-    <script src='./dld_designs-min.js'></script>
+    <script src='./dld.js'></script>
+    <script src='./cycle_sim.js'></script>
+    <script src='./cycle_sim_prim.js'></script>
+    <script src='./dld_designs.js'></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -510,6 +510,7 @@ ENDDEF</div></div>
                 test fixture and changing IO_OUTs to IO_INs</li>
             <li>Add text to indicate that most tests are randomized</li>
             <li>Prevent holding enter on sell buttons from working</li>
+            <li>Add confirmation to reset button</li>
             <li>Show a popup if player tries to sell without enough Si or buy without enough $</li>
             <li>Handle large number of clicks on sell buttons wrt analytics</li>
             <li>Including IO_IN(8) should cause all tests to ultimately fail.</li>
@@ -541,7 +542,6 @@ ENDDEF</div></div>
             <li><span class="span_info_time">Thu Apr  3 03:44:39 UTC 2014</span>Adjust upgrade balancing</li>
             <li><span class="span_info_time">Thu Apr  3 03:44:39 UTC 2014</span>Adjust design cost/price with new expectedNand values</li>
             <li><span class="span_info_time">Thu Apr  3 03:32:04 UTC 2014</span>Make upgrades show current and next valueA</li>
-            <li>Add confirmation to reset button</li>
             <li>Fixed demux tests so that the name remains consistant between description and test</li>
             <li>General release</li>
             <li>Find beta testers</li>
