@@ -88,16 +88,65 @@ body {
   display: inline-block;
 }
 
-#div_tab_buttons {
-  margin-bottom: 5px;
+#div_tab_buttons button {
+  padding: .5em 1em;
+  border-radius: .5em 1em 0 0;
+  border-bottom: none;
+  font-weight: bold;
+  letter-spacing: .25em;
+  color: #fff;
+  text-shadow: 0 0 .2em #000;
 }
+
+#div_tab_buttons button:focus {
+  outline: none;
+  color: #000;
+  text-shadow: 0 0 .2em #fff;
+}
+
+#button_tab_docs {background-color:hsl(0, 50%, 50%);}
+#button_tab_mine {background-color:hsl(60, 50%, 50%);}
+#button_tab_design {background-color:hsl(120, 50%, 50%);}
+#button_tab_business {background-color:hsl(180, 50%, 50%);}
+#button_tab_upgrades {background-color:hsl(240, 50%, 50%);}
+#button_tab_info {background-color:hsl(300, 50%, 50%);}
 
 .div_tab {
   display: none;
-  padding: 10px;
+  padding: 1em;
   border: 2px solid;
-  border-radius: 5px;
+  border-radius: 0 .5em .5em;
   background: #FEFCF7;
+}
+
+#div_tab_docs {
+  border-color: hsl(0, 50%, 50%);
+  box-shadow: inset 0 0 .5em .5em hsl(0, 50%, 50%);
+}
+
+#div_tab_mine {
+  border-color: hsl(60, 50%, 50%);
+  box-shadow: inset 0 0 .5em .5em hsl(60, 50%, 50%);
+}
+
+#div_tab_design {
+  border-color: hsl(120, 50%, 50%);
+  box-shadow: inset 0 0 .5em .5em hsl(120, 50%, 50%);
+}
+
+#div_tab_business {
+  border-color: hsl(180, 50%, 50%);
+  box-shadow: inset 0 0 .5em .5em hsl(180, 50%, 50%);
+}
+
+#div_tab_upgrades {
+  border-color: hsl(240, 50%, 50%);
+  box-shadow: inset 0 0 .5em .5em hsl(240, 50%, 50%);
+}
+
+#div_tab_info {
+  border-color: hsl(300, 50%, 50%);
+  box-shadow: inset 0 0 .5em .5em hsl(300, 50%, 50%);
 }
 
 .div_docs {
