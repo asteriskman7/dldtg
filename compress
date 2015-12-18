@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-rm *-min.js
-yuicompress -o '.js$:-min.js' *.js
-
-rm *-min.css
-yuicompress -o '.css$:-min.css' *.css
