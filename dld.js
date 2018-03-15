@@ -74,7 +74,7 @@ var dld = {
     document.getElementById('button_design_load_test').onclick = dld.loadTest;
     document.getElementById('button_design_load_netlist').onclick = dld.loadNetlistFile;
     document.getElementById('button_design_clear_netlist').onclick = dld.clearNetlist;
-    document.getElementById('checkbox_design_graphs').onchange = function() {cycle_sim.graphsEnabled = this.checked; ga('send', 'event', 'design', 'enable_graphs', this.checked.toString()); };
+    document.getElementById('checkbox_design_graphs').onchange = function() {cycle_sim.graphsEnabled = this.checked; /*ga('send', 'event', 'design', 'enable_graphs', this.checked.toString());*/ };
 
     document.getElementById('span_design_rDesigns').innerHTML = dld.designListToSelectHTML();
     document.getElementById('select_design_rDesigns').onchange = dld.loadDesignDesc;
@@ -102,7 +102,7 @@ var dld = {
       dld.state.firstVisit = false;
       dld.showPopup("Welcome! Please read the introduction document to get started and then proceed to Tutorial 1. ");
     }
-    ga('send', 'event', 'init', 'PASS');
+    //ga('send', 'event', 'init', 'PASS');
 
   },
 
@@ -150,7 +150,7 @@ var dld = {
 
   saveClick: function() {
     dld.saveToLocalStorage();
-    ga('send', 'event', 'info', 'save', 'click');
+    //ga('send', 'event', 'info', 'save', 'click');
   },
 
   reset: function() {
@@ -158,7 +158,7 @@ var dld = {
       localStorage.clear();
       dld.loadDefaultState();
       dld.init();
-      ga('send', 'event', 'info', 'reset', 'click');
+      //ga('send', 'event', 'info', 'reset', 'click');
     }
   },
 
@@ -176,7 +176,7 @@ var dld = {
       return;
     }
 
-    ga('send', 'event', 'dialog', 'create', title);
+    //ga('send', 'event', 'dialog', 'create', title);
 
     var body = document.getElementById('body');
     var divDialog = document.createElement('div');
@@ -253,7 +253,7 @@ var dld = {
     document.getElementById('div_tab_' + newTab).style.display = 'block';
     dld.curTab = newTab;
     if (userRequested) {
-      ga('send', 'event', 'changeTab', 'change', newTab);
+      //ga('send', 'event', 'changeTab', 'change', newTab);
     }
   },
 
@@ -273,7 +273,7 @@ var dld = {
       docs.item(i).style.display = 'none';
     }
     if (notUserRequested !== true) {
-      ga('send', 'event', 'changeDoc', 'show', seldoc);
+      //ga('send', 'event', 'changeDoc', 'show', seldoc);
     }
     document.getElementById('div_docs_' + seldoc).style.display = 'block';
   },
@@ -331,10 +331,10 @@ var dld = {
     if (eSel.value.length > 0) {
       designNum = parseInt(eSel.value, 10);
       eText.value = dld_designs[designNum].netlist;
-      ga('send', 'event', 'design', 'load', dld_designs[designNum].name);
+      //ga('send', 'event', 'design', 'load', dld_designs[designNum].name);
     } else {
       cycle_sim.log('ERROR: You must select a design before you can load a test.');
-      ga('send', 'event', 'design', 'load', 'FAIL');
+      //ga('send', 'event', 'design', 'load', 'FAIL');
     }
   },
 
@@ -413,11 +413,11 @@ var dld = {
     dld.updateDisplay();
     if (dld.state.mineClicks < 1000) {
       if (dld.state.mineClicks % 100 === 0) {
-        ga('send', 'event', 'mine', 'click', 'button', 100);
+        //ga('send', 'event', 'mine', 'click', 'button', 100);
       }
     } else {
       if (dld.state.mineClicks % 1000 === 0) {
-        ga('send', 'event', 'mine', 'click', 'button', 1000);
+        //ga('send', 'event', 'mine', 'click', 'button', 1000);
       }
     }
   },
@@ -437,16 +437,16 @@ var dld = {
       };
 
       reader.readAsText(file);
-      ga('send', 'event', 'design', 'load_netlist', 'SUCCESS');
+      //ga('send', 'event', 'design', 'load_netlist', 'SUCCESS');
     } else {
       cycle_sim.log('ERROR: You must select a file before it can be loaded.');
-      ga('send', 'event', 'design', 'load_netlist', 'FAIL');
+      //ga('send', 'event', 'design', 'load_netlist', 'FAIL');
     }
   },
 
   clearNetlist: function() {
     document.getElementById('textarea_design_netlist').value = '';
-    ga('send', 'event', 'design', 'clear_netlist', 'SUCCESS');
+    //ga('send', 'event', 'design', 'clear_netlist', 'SUCCESS');
   },
 
   simRun: function() {
@@ -456,6 +456,7 @@ var dld = {
       designNum = parseInt(eSel.value);
       var eNetlist = document.getElementById('textarea_design_netlist');
       dld.state.savedDesigns[designNum] = eNetlist.value;
+      dld.saveToLocalStorage();
     }
     cycle_sim.simRun();
 
@@ -643,7 +644,7 @@ var dld = {
       dld.updateBusinessBlueprints();
       document.getElementById('span_design_rDesigns').innerHTML = dld.designListToSelectHTML();
       document.getElementById('select_design_rDesigns').onchange = dld.loadDesignDesc;
-      ga('send', 'event', 'blueprint', 'buy', dld_designs[designIndex].name);
+      //ga('send', 'event', 'blueprint', 'buy', dld_designs[designIndex].name);
     }
   },
 
@@ -799,7 +800,7 @@ var dld = {
       }
       */
       dld.updateUpgrades();
-      ga('send', 'event', 'upgrades', 'buy', index.toString());
+      //ga('send', 'event', 'upgrades', 'buy', index.toString());
     }
 
   }
@@ -821,7 +822,7 @@ window.onerror = function(errorMsg, url, lineNumber) {
   var label = errorMsg.substr(0, 500);
 
   if (gaErrorReportsRemaining > 0) {
-    ga('send', 'event', 'error', action, label);
+    //ga('send', 'event', 'error', action, label);
     console.log('Sent as "' + action.substr(0, 500) + '", "' + label.substr(0, 500) + '"');
     gaErrorReportsRemaining -= 1;
   } else {
@@ -836,7 +837,7 @@ window.onerror = function(errorMsg, url, lineNumber) {
 //};
 
 if (window.addEventListener === undefined) {
-  ga('send', 'event', 'init', 'FAIL');
+  //ga('send', 'event', 'init', 'FAIL');
 } else {
   window.addEventListener('load', dld.init, false);
 }

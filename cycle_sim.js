@@ -70,14 +70,14 @@ var cycle_sim = {
     cycle_sim.hw.testStatus = 'FAIL';
     cycle_sim.simPause();
     cycle_sim.testFinished(-1);
-    ga('send', 'event', 'cycle_sim', 'test_fail', testName);
+    //ga('send', 'event', 'cycle_sim', 'test_fail', testName);
   },
   testPass: function (testName, testNumber) {
     cycle_sim.simLog("TEST PASS\nREASON: All tests were successful");
     cycle_sim.hw.testStatus = "PASS";
     cycle_sim.simPause();
     cycle_sim.testFinished(testNumber);
-    ga('send', 'event', 'cycle_sim', 'test_pass', testName);
+    //ga('send', 'event', 'cycle_sim', 'test_pass', testName);
   },
   randomBool: function() {
     return Math.random() > 0.5;
@@ -253,7 +253,7 @@ var cycle_sim = {
 
     if (netlistText.length === 0) {
       cycle_sim.log('ERROR: Empty netlist');
-      ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-EmptyNetlist');
+      //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-EmptyNetlist');
       return false;
     }
 
@@ -300,13 +300,13 @@ var cycle_sim = {
            case "PORT":
              if (lineSplit.length !== 3) {
                cycle_sim.netlistErrorLog("PORT should be exactly 3 words", lineNum, line);
-               ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-PortShouldBe3Words');
+               //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-PortShouldBe3Words');
                return false;
              }
              portDirection = lineSplit[1];
              if (["IN","OUT"].indexOf(portDirection) === -1) {
                cycle_sim.netlistErrorLog("PORT direction must be either IN or OUT, not \"" + portDirection + "\"", lineNum, line);
-               ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-PortDirectionMustBeInOrOut');
+               //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-PortDirectionMustBeInOrOut');
                return false;
              }
 
@@ -316,7 +316,7 @@ var cycle_sim = {
                portName = expandedNetArray[i];
                if (cycle_sim.findObjByProp(block.nets, "name", portName) !== undefined) {
                  cycle_sim.netlistErrorLog("PORT must provide a unique name", lineNum, line);
-                 ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-PortMustProvideAUniqueName');
+                 //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-PortMustProvideAUniqueName');
                  return false;
                }
                port = {
@@ -336,7 +336,7 @@ var cycle_sim = {
            case "NET":
              if (lineSplit.length !== 2) {
                cycle_sim.netlistErrorLog("NET should be exactly 2 words", lineNum, line);
-               ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-NetShouldBe2Words');
+               //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-NetShouldBe2Words');
                return false;
              }
              netName = lineSplit[1];
@@ -345,7 +345,7 @@ var cycle_sim = {
                netName = expandedNetArray[i];
                if (cycle_sim.findObjByProp(block.nets, "name", netName) !== undefined) {
                  cycle_sim.netlistErrorLog("NET must provide a unique name", lineNum, line);
-                 ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-NetMustBeUnique');
+                 //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-NetMustBeUnique');
                  return false;
                }
                net = {
@@ -358,7 +358,7 @@ var cycle_sim = {
            case "INST":
              if (lineSplit.length < 4) {
                cycle_sim.netlistErrorLog("INST must have at least 4 words", lineNum, line);
-               ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-InstMustHave4Words');
+               //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-InstMustHave4Words');
                return false;
              }
 
@@ -367,7 +367,7 @@ var cycle_sim = {
 
              if (cycle_sim.hw.blocks[blockName] === undefined) {
                cycle_sim.netlistErrorLog("INST must only refer to previously defined blocks (" + blockName + ")", lineNum, line);
-               ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-InstMustReferToDefinedBlock');
+               //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-InstMustReferToDefinedBlock');
                return false;
              }
              //TODO: need to make sure that the direction of connections to the inst is correct
@@ -382,14 +382,14 @@ var cycle_sim = {
                if (cycle_sim.findObjByProp(block.nets, "name", instPorts[i]) === undefined) {
                  if ((instPorts[i] !== "TRUE") && (instPorts[i] !== "FALSE")) {
                    cycle_sim.netlistErrorLog("INST ports must only be connected to previously defined PORTS/NETS (" + instPorts[i] + ")", lineNum, line);
-                   ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-InstPortsMustConnectToDefined');
+                   //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-InstPortsMustConnectToDefined');
                    return false;
                  }
                }
              }
              if (instPorts.length !== cycle_sim.hw.blocks[blockName].ports.length) {
                cycle_sim.netlistErrorLog("INST declaration must assign as many ports as a block actually has (" + instPorts.length + " != " + cycle_sim.hw.blocks[blockName].ports.length + ")", lineNum, line);
-               ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-InstDeclarationPortCountMismatch');
+               //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-InstDeclarationPortCountMismatch');
                return false;
              }
 
@@ -402,7 +402,7 @@ var cycle_sim = {
 
              if (block.insts.filter(function(inst){return inst.name===instName;}).length > 0) {
                cycle_sim.netlistErrorLog("Each INST name must be unique in a given block. (" + instName + ")", lineNum, line);
-               ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-InstNameMustBeUniqueInABlock');
+               //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-InstNameMustBeUniqueInABlock');
                return false;
              }
 
@@ -412,13 +412,13 @@ var cycle_sim = {
            case "ENDDEF":
              if (lineSplit.length !== 1) {
                cycle_sim.netlistErrorLog("ENDDEF should be exactly 1 word", lineNum, line);
-               ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-EnddefMustBe1Word');
+               //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-EnddefMustBe1Word');
                return false;
              }
 
              if (inDef === false) {
                cycle_sim.netlistErrorLog("ENDDEF should only occur after a valid DEF", lineNum, line);
-               ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-EnddefMustComeAfterDef');
+               //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-EnddefMustComeAfterDef');
                return false;
              }
 
@@ -428,27 +428,27 @@ var cycle_sim = {
              break;
            case "DEF":
              cycle_sim.netlistErrorLog("DEF not allowed inside previous DEF. ENDDEF should come first", lineNum, line);
-             ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-DefNotAllowedInDef');
+             //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-DefNotAllowedInDef');
              return false;
            default:
             cycle_sim.netlistErrorLog("Unknown command \"" + cmd + "\"", lineNum, line);
-            ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-UnknownCommand');
+            //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-UnknownCommand');
             return false;
           }
         } else {
           if (cmd !== "DEF") {
             cycle_sim.netlistErrorLog("Expected DEF", lineNum, line);
-            ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-ExpectedDef');
+            //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-ExpectedDef');
             return false;
           } else {
             if (lineSplit.length !== 2) {
               cycle_sim.netlistErrorLog("DEF should be exactly 2 words", lineNum, line);
-              ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-DefShouldBe2Words');
+              //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-DefShouldBe2Words');
               return false;
             }
             if (cycle_sim.hw.blocks[lineSplit[1]] !== undefined) {
               cycle_sim.netlistErrorLog("DEF must not redefine previously defined blocks", lineNum, line);
-              ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-DefMustNotRedefine');
+              //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-DefMustNotRedefine');
               return false;
             }
             block = {
@@ -464,14 +464,14 @@ var cycle_sim = {
     }
     if (inDef === true) {
       cycle_sim.netlistErrorLog("Last open DEF not closed with ENDDEF", "EOF", "");
-      ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-LastDEFNotClosed');
+      //ga('send', 'event', 'cycle_sim', 'parse', 'FAIL-LastDEFNotClosed');
       return false;
     }
 
     //cycle_sim.changeNetlistState("old");
     //cycle_sim.setButtonsState("parsed");
     cycle_sim.log("===Netlist parse complete.");
-    ga('send', 'event', 'cycle_sim', 'parse', 'PASS');
+    //ga('send', 'event', 'cycle_sim', 'parse', 'PASS');
     return true;
   },
   createNewSignal: function() {
@@ -649,12 +649,12 @@ var cycle_sim = {
     cycle_sim.log("===Elaboration start.");
     if (cycle_sim.hw.blocks.TOP === undefined) {
       cycle_sim.log("ERROR: A block named TOP must be defined");
-      ga('send', 'event', 'cycle_sim', 'elaborate', 'FAIL-TopMustBeDefined');
+      //ga('send', 'event', 'cycle_sim', 'elaborate', 'FAIL-TopMustBeDefined');
       return false;
     }
     if (cycle_sim.hw.blocks.TOP.ports.length > 0) {
       cycle_sim.log("ERROR: The TOP block must have no ports");
-      ga('send', 'event', 'cycle_sim', 'elaborate', 'FAIL-TopMustNotHavePorts');
+      //ga('send', 'event', 'cycle_sim', 'elaborate', 'FAIL-TopMustNotHavePorts');
       return false;
     }
 
@@ -684,7 +684,7 @@ var cycle_sim = {
 
     //cycle_sim.setButtonsState("elabed");
     cycle_sim.log("===Elaboration end.");
-    ga('send', 'event', 'cycle_sim', 'elaborate', 'PASS');
+    //ga('send', 'event', 'cycle_sim', 'elaborate', 'PASS');
     return true;
   },
   simTick: function () {
@@ -707,7 +707,7 @@ var cycle_sim = {
 
       cycle_sim.hw.time += 1;
       if (cycle_sim.intervalID === undefined) {
-        ga('send', 'event', 'cycle_sim', 'step');
+        //ga('send', 'event', 'cycle_sim', 'step');
         break;
       }
     }
@@ -722,7 +722,7 @@ var cycle_sim = {
       if (cycle_sim.hw.simState !== undefined) {
         cycle_sim.currentCyclesPerSecond = cycle_sim.simCyclesPerSecond;
         cycle_sim.intervalID = setInterval(cycle_sim.simTick, 1000 / cycle_sim.simCyclesPerSecond);
-        ga('send', 'event', 'cycle_sim', 'run', 'click');
+        //ga('send', 'event', 'cycle_sim', 'run', 'click');
       } else {
         cycle_sim.log('ERROR: You can not run until you have compiled/elaborated successfully with the Init\\Reset button.');
       }
@@ -733,7 +733,7 @@ var cycle_sim = {
       clearInterval(cycle_sim.intervalID);
       cycle_sim.intervalID = undefined;
       cycle_sim.eSimTime.textContent = cycle_sim.hw.time;
-      ga('send', 'event', 'cycle_sim', 'pause', 'click');
+      //ga('send', 'event', 'cycle_sim', 'pause', 'click');
     }
   },
   changeSimSpeed: function (direction) {
@@ -759,7 +759,7 @@ var cycle_sim = {
 
     var eSpeed = document.getElementById("span_design_speed");
     eSpeed.textContent = cycle_sim.speedNames[cycle_sim.speedIndex];
-    ga('send', 'event', 'cycle_sim', 'change_speed', cycle_sim.speedIndex);
+    //ga('send', 'event', 'cycle_sim', 'change_speed', cycle_sim.speedIndex);
   },
   reset: function(netlistTextArea) {
     var eText = document.getElementById(netlistTextArea);
@@ -770,4 +770,3 @@ var cycle_sim = {
   }
 
 };
-
