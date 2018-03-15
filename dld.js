@@ -20,7 +20,7 @@
 'use strict';
 
 var dld = {
-  dld_version: 'ver_20140506.1',
+  dld_version: 'ver_20180315.1',
   state: {},
   curTab: 'Docs',
   lastTick: undefined,
@@ -66,7 +66,7 @@ var dld = {
 
     //set up design tab
     document.getElementById('button_design_init').onclick = function() {cycle_sim.reset('textarea_design_netlist'); };
-    document.getElementById('button_design_run').onclick = cycle_sim.simRun;
+    document.getElementById('button_design_run').onclick = dld.simRun;
     document.getElementById('button_design_pause').onclick = cycle_sim.simPause;
     document.getElementById('button_design_step').onclick = cycle_sim.simTick;
     document.getElementById('button_design_speed+').onclick = function() {cycle_sim.changeSimSpeed('+'); };
@@ -124,7 +124,8 @@ var dld = {
       sellClicks: 0,
       totalMined: 0,
       totalSold: 0,
-      firstVisit: true
+      firstVisit: true,
+      savedDesigns: []
     };
   },
 
@@ -313,7 +314,13 @@ var dld = {
     var eSel = document.getElementById('select_design_rDesigns');
     if (eSel.value.length > 0) {
       var eDesc = document.getElementById('div_design_description');
-      eDesc.innerHTML = dld_designs[parseInt(eSel.value, 10)].desc;
+      let designIndex = parseInt(eSel.value);
+      eDesc.innerHTML = dld_designs[designIndex].desc;
+      let savedDesign = dld.state.savedDesigns[designIndex];
+      if (savedDesign) {
+        var eNetlist = document.getElementById('textarea_design_netlist');
+        eNetlist.value = savedDesign;
+      }
     }
   },
 
@@ -440,6 +447,18 @@ var dld = {
   clearNetlist: function() {
     document.getElementById('textarea_design_netlist').value = '';
     ga('send', 'event', 'design', 'clear_netlist', 'SUCCESS');
+  },
+
+  simRun: function() {
+    var eSel = document.getElementById('select_design_rDesigns');
+    var designNum;
+    if (eSel.value.length > 0) {
+      designNum = parseInt(eSel.value);
+      var eNetlist = document.getElementById('textarea_design_netlist');
+      dld.state.savedDesigns[designNum] = eNetlist.value;
+    }
+    cycle_sim.simRun();
+
   },
 
   netlistKeyHandler: function(e) {
