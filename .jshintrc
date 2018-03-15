@@ -3,5 +3,6 @@
   "browser": true,
   "devel": true,
   "loopfunc": true,
+  "esversion": 6,
   "predef": [ ]
 }
