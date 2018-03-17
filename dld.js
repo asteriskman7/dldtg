@@ -451,8 +451,55 @@ var dld = {
 
   simInit: function() {
     //build combined netlist and pass to cycle_sim.reset()
+    /*
+      start with empty design string
+      for every earlier design (display order is in dld_designs_display_order)
+        if the design is complete
+          load the design
+          remove the TOP def (ignore case)
+          append remainder to design string
+          store info about length of string appended
+      append this design string
+    */
+    let validNetlists = [];
+    let netlistInfo = [];
+    let nextStartPosition = 0;
+    let eSel = document.getElementById('select_design_rDesigns');
+    let designNum; //the design number currently selected
+    if (eSel.value.length > 0) {
+      designNum = parseInt(eSel.value);
+      let curDisplayIndex = dld_designs_display_order.indexOf(designNum);
+      for (let i = 0; i < curDisplayIndex; i++) {
+        //add the design for dld_designs_display_order[i] to combinedNetlist
+        let priorDesignNum = dld_designs_display_order[i];
+        if (dld.state.cDesigns[priorDesignNum] !== null) {
+          let designNetlist = dld.state.savedDesigns[priorDesignNum];
+          let priorDesignName = dld_designs[priorDesignNum].name;
+          //remove everything from def top to end of netlist
+          let cleanedNetlist = designNetlist.replace(/def top[\s\S]*/i, '');
+          validNetlists.push(cleanedNetlist);
+          let netlistLength = cleanedNetlist.split`\n`.length;
+          let netlistEnd = nextStartPosition + netlistLength - 1;
+          netlistInfo.push({name: priorDesignName, start: nextStartPosition, end: netlistEnd, length: netlistLength });
+          nextStartPosition += cleanedNetlist.split`\n`.length;
+        }
+      }
+    }
+
     let curNetlist = document.getElementById('textarea_design_netlist').value;
-    cycle_sim.reset(curNetlist);
+    validNetlists.push(curNetlist);
+    let designName = dld_designs[designNum].name;
+    let netlistLength = curNetlist.split`\n`.length;
+    let netlistEnd = nextStartPosition + netlistLength - 1;
+    netlistInfo.push({name: designName, start: nextStartPosition, end: netlistEnd, length: netlistLength});
+
+    let finalNetlist = validNetlists.join`\n`;
+
+    console.log('Combined netlist:');
+    console.log(finalNetlist.split`\n`.map((v,i) => `${i}: ${v}`).join`\n`);
+    console.log(netlistInfo);
+
+    cycle_sim.reset(finalNetlist, netlistInfo);
   },
 
   simRun: function() {

@@ -55,6 +55,7 @@ var cycle_sim = {
   speedList: [1.25, 2.5, 5, 10, 20, 40, 80, 160, 320, 1000],
   speedMax: false,
   nandCount: 0,
+  netlistInfo: undefined,
   log: function(s) {
     cycle_sim.logElement.value += s + '\n';
     cycle_sim.logElement.scrollTop = cycle_sim.logElement.scrollHeight;
@@ -63,7 +64,19 @@ var cycle_sim = {
     cycle_sim.log("@T=" + cycle_sim.hw.time + " " + s);
   },
   netlistErrorLog: function(s, lineNum, line) {
-    cycle_sim.log("ERROR: (line " + lineNum + ") " + s + "\n" + line);
+    //convert line number to correct number and design name
+    let inputNetlistIndex = 0;
+    while (cycle_sim.netlistInfo[inputNetlistIndex] !== undefined && cycle_sim.netlistInfo[inputNetlistIndex].end < lineNum) {
+      inputNetlistIndex++;
+    }
+
+    let designNetlistInfo = cycle_sim.netlistInfo[inputNetlistIndex];
+    let designName = designNetlistInfo.name;
+    let designLineNum = lineNum - designNetlistInfo.start;
+
+
+    //cycle_sim.log("ERROR: (line " + lineNum + ") " + s + "\n" + line);
+    cycle_sim.log(`ERROR: (Design:${designName} Line:${designLineNum}) ${s} ${"\n"}${line}`);
   },
   testFail: function(testName, reason) {
     cycle_sim.simLog('TEST_FAIL\nREASON: ' + reason);
@@ -761,7 +774,8 @@ var cycle_sim = {
     eSpeed.textContent = cycle_sim.speedNames[cycle_sim.speedIndex];
     //ga('send', 'event', 'cycle_sim', 'change_speed', cycle_sim.speedIndex);
   },
-  reset: function(netlist) {
+  reset: function(netlist, netlistInfo) {
+    cycle_sim.netlistInfo = netlistInfo;
     return cycle_sim.parseNetlist(netlist) && cycle_sim.elaborate();
   },
   initialize: function() {
