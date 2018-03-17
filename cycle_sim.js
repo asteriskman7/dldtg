@@ -761,9 +761,8 @@ var cycle_sim = {
     eSpeed.textContent = cycle_sim.speedNames[cycle_sim.speedIndex];
     //ga('send', 'event', 'cycle_sim', 'change_speed', cycle_sim.speedIndex);
   },
-  reset: function(netlistTextArea) {
-    var eText = document.getElementById(netlistTextArea);
-    return cycle_sim.parseNetlist(eText.value) && cycle_sim.elaborate();
+  reset: function(netlist) {
+    return cycle_sim.parseNetlist(netlist) && cycle_sim.elaborate();
   },
   initialize: function() {
     cycle_sim.eSimTime = document.getElementById('span_design_time');

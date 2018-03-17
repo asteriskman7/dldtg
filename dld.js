@@ -65,7 +65,7 @@ var dld = {
     document.getElementById('button_mine').onkeypress = function (e) {e.preventDefault(); };
 
     //set up design tab
-    document.getElementById('button_design_init').onclick = function() {cycle_sim.reset('textarea_design_netlist'); };
+    document.getElementById('button_design_init').onclick = dld.simInit;
     document.getElementById('button_design_run').onclick = dld.simRun;
     document.getElementById('button_design_pause').onclick = cycle_sim.simPause;
     document.getElementById('button_design_step').onclick = cycle_sim.simTick;
@@ -447,6 +447,12 @@ var dld = {
   clearNetlist: function() {
     document.getElementById('textarea_design_netlist').value = '';
     //ga('send', 'event', 'design', 'clear_netlist', 'SUCCESS');
+  },
+
+  simInit: function() {
+    //build combined netlist and pass to cycle_sim.reset()
+    let curNetlist = document.getElementById('textarea_design_netlist').value;
+    cycle_sim.reset(curNetlist);
   },
 
   simRun: function() {
