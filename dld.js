@@ -502,8 +502,10 @@ var dld = {
     }
 
     //update design select box
+    let oldSelect = document.getElementById('select_design_rDesigns').value;
     document.getElementById('span_design_rDesigns').innerHTML = dld.designListToSelectHTML();
     document.getElementById('select_design_rDesigns').onchange = dld.loadDesignDesc;
+    document.getElementById('select_design_rDesigns').value = oldSelect;
 
     //update business available choices?
     dld.initBusinessCompletedDesigns();
@@ -648,8 +650,10 @@ var dld = {
       dld.state.cash -= designCost;
       dld.state.rDesigns[designIndex] = true;
       dld.updateBusinessBlueprints();
+      let oldSelect = document.getElementById('select_design_rDesigns').value;
       document.getElementById('span_design_rDesigns').innerHTML = dld.designListToSelectHTML();
       document.getElementById('select_design_rDesigns').onchange = dld.loadDesignDesc;
+      document.getElementById('select_design_rDesigns').value = oldSelect;
       //ga('send', 'event', 'blueprint', 'buy', dld_designs[designIndex].name);
     }
   },
