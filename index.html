@@ -175,9 +175,15 @@ ENDDEF </div></div>
               <button type='button' class='button_popout' title='Pop out' data-popout_div='div_popout_tutorial_2'>&#x21B7;</button>
             </div>
             <p class='p_narrow'>
-              Now is probably a good time to start storing your designs into a local file that you can load into the simulator. This will
-              not be the last time you will need a NOT gate. Create a new text file anywhere on your computer. Edit the file with your
-              favorite text editor. You can use the Choose File and Prepend File buttons on the Design tab to load your designs directly
+              When you run your design, previously completed designs that appear above the current design in the available designs list
+              will be automatically available. For example, you could use your successful NOT design in a future design without needing to
+              retype the definition of NOT. To disable this feature, uncheck the "Automatically include prior designs" checkbox on the info
+              tab.
+            </p>
+            <p class='p_narrow'>
+              It's also possible to load designs from a file if you prefer to edit with your own text editor.
+              Create a new text file anywhere on your computer. Edit the file with your favorite text editor.
+              You can use the Choose File and Prepend File buttons on the Design tab to load your designs directly
               from the file into the netlist textbox.
             </p>
             <p class='p_narrow'>
@@ -495,6 +501,9 @@ ENDDEF</div></div>
         <div>
           <button type='button' id='button_info_save'>Save</button>
           <button type='button' id='button_info_reset'>Reset</button>
+        </div>
+        <div>
+          <input type='checkbox' id='checkbox_include_prior_designs' value='true'>Automatically include prior designs
         </div>
         <div>
           <h2>Reddit:</h2>

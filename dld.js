@@ -91,6 +91,8 @@ var dld = {
     //set up info tab
     document.getElementById('button_info_save').onclick = dld.saveClick;
     document.getElementById('button_info_reset').onclick = dld.reset;
+    document.getElementById('checkbox_include_prior_designs').onclick = dld.toggleIncludePriorDesigns;
+    document.getElementById('checkbox_include_prior_designs').checked = dld.state.includePriorDesigns;
 
     //start periodic updates every 300ms
     setInterval(dld.tick, 300);
@@ -125,7 +127,8 @@ var dld = {
       totalMined: 0,
       totalSold: 0,
       firstVisit: true,
-      savedDesigns: []
+      savedDesigns: [],
+      includePriorDesigns: true
     };
   },
 
@@ -160,6 +163,11 @@ var dld = {
       dld.init();
       //ga('send', 'event', 'info', 'reset', 'click');
     }
+  },
+
+  toggleIncludePriorDesigns: function() {
+    dld.state.includePriorDesigns = !dld.state.includePriorDesigns;
+    document.getElementById('checkbox_include_prior_designs').checked = dld.state.includePriorDesigns;
   },
 
   showPopup: function(msg) {
@@ -466,24 +474,28 @@ var dld = {
     let nextStartPosition = 0;
     let eSel = document.getElementById('select_design_rDesigns');
     let designNum; //the design number currently selected
-    if (eSel.value.length > 0) {
-      designNum = parseInt(eSel.value);
-      let curDisplayIndex = dld_designs_display_order.indexOf(designNum);
-      for (let i = 0; i < curDisplayIndex; i++) {
-        //add the design for dld_designs_display_order[i] to combinedNetlist
-        let priorDesignNum = dld_designs_display_order[i];
-        if (dld.state.cDesigns[priorDesignNum] !== null) {
-          let designNetlist = dld.state.savedDesigns[priorDesignNum];
-          let priorDesignName = dld_designs[priorDesignNum].name;
-          //remove everything from def top to end of netlist
-          let cleanedNetlist = designNetlist.replace(/def top[\s\S]*/i, '');
-          validNetlists.push(cleanedNetlist);
-          let netlistLength = cleanedNetlist.split`\n`.length;
-          let netlistEnd = nextStartPosition + netlistLength - 1;
-          netlistInfo.push({name: priorDesignName, start: nextStartPosition, end: netlistEnd, length: netlistLength });
-          nextStartPosition += cleanedNetlist.split`\n`.length;
+    designNum = parseInt(eSel.value);
+    if (dld.state.includePriorDesigns) {
+
+      //if (eSel.value.length > 0) {
+
+        let curDisplayIndex = dld_designs_display_order.indexOf(designNum);
+        for (let i = 0; i < curDisplayIndex; i++) {
+          //add the design for dld_designs_display_order[i] to combinedNetlist
+          let priorDesignNum = dld_designs_display_order[i];
+          if (dld.state.cDesigns[priorDesignNum] !== null) {
+            let designNetlist = dld.state.savedDesigns[priorDesignNum];
+            let priorDesignName = dld_designs[priorDesignNum].name;
+            //remove everything from def top to end of netlist
+            let cleanedNetlist = designNetlist.replace(/def top[\s\S]*/i, '');
+            validNetlists.push(cleanedNetlist);
+            let netlistLength = cleanedNetlist.split`\n`.length;
+            let netlistEnd = nextStartPosition + netlistLength - 1;
+            netlistInfo.push({name: priorDesignName, start: nextStartPosition, end: netlistEnd, length: netlistLength });
+            nextStartPosition += cleanedNetlist.split`\n`.length;
+          }
         }
-      }
+      //}
     }
 
     let curNetlist = document.getElementById('textarea_design_netlist').value;
