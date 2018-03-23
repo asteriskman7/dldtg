@@ -485,14 +485,16 @@ var dld = {
           let priorDesignNum = dld_designs_display_order[i];
           if (dld.state.cDesigns[priorDesignNum] !== null) {
             let designNetlist = dld.state.savedDesigns[priorDesignNum];
-            let priorDesignName = dld_designs[priorDesignNum].name;
-            //remove everything from def top to end of netlist
-            let cleanedNetlist = designNetlist.replace(/def top[\s\S]*/i, '');
-            validNetlists.push(cleanedNetlist);
-            let netlistLength = cleanedNetlist.split`\n`.length;
-            let netlistEnd = nextStartPosition + netlistLength - 1;
-            netlistInfo.push({name: priorDesignName, start: nextStartPosition, end: netlistEnd, length: netlistLength });
-            nextStartPosition += cleanedNetlist.split`\n`.length;
+            if (designNetlist) {
+              let priorDesignName = dld_designs[priorDesignNum].name;
+              //remove everything from def top to end of netlist
+              let cleanedNetlist = designNetlist.replace(/def top[\s\S]*/i, '');
+              validNetlists.push(cleanedNetlist);
+              let netlistLength = cleanedNetlist.split`\n`.length;
+              let netlistEnd = nextStartPosition + netlistLength - 1;
+              netlistInfo.push({name: priorDesignName, start: nextStartPosition, end: netlistEnd, length: netlistLength });
+              nextStartPosition += cleanedNetlist.split`\n`.length;
+            }
           }
         }
       //}
