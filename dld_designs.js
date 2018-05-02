@@ -760,7 +760,7 @@ dld_designs[18] = {
       ].join('\n'),
     cost: 2662,
     price: 168,
-    expectedNands: 16
+    expectedNands: 15
   };
 /*
   {
@@ -858,7 +858,7 @@ dld_designs[19] = {
       ].join('\n'),
     cost: 3355,
     price: 1826,
-    expectedNands: 166
+    expectedNands: 37
   };
 dld_designs[20] = {
   name: 'ADDx8',
